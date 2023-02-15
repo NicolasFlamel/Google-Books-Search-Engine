@@ -87,11 +87,11 @@ const SearchBooks = () => {
 
   return (
     <>
-      <div fluid className='text-light bg-dark pt-5'>
+      <div fluid='true' className='text-light bg-dark pt-5'>
         <Container>
           <h1>Search for Books!</h1>
           <Form onSubmit={handleFormSubmit}>
-            <Form.Row>
+            <Form.Group as={Row}>
               <Col xs={12} md={8}>
                 <Form.Control
                   name='searchInput'
@@ -107,7 +107,7 @@ const SearchBooks = () => {
                   Submit Search
                 </Button>
               </Col>
-            </Form.Row>
+            </Form.Group>
           </Form>
         </Container>
       </div>

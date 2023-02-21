@@ -28,7 +28,12 @@ export const SAVE_BOOK = gql`
   mutation saveBook($book: BookInput!) {
     saveBook(book: $book) {
       _id
-      username
+      description
+      bookId
+      image
+      link
+      title
+      authors
     }
   }
 `;
@@ -37,7 +42,12 @@ export const DELETE_BOOK = gql`
   mutation deleteBook($bookId: ID!) {
     deleteBook(bookId: $bookId) {
       _id
-      username
+      description
+      bookId
+      image
+      link
+      title
+      authors
     }
   }
 `;

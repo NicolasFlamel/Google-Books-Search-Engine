@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useQuery, useMutation } from '@apollo/client';
 import {
   Jumbotron,
   Container,
@@ -10,7 +11,9 @@ import {
 } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { saveBook, searchGoogleBooks } from '../utils/API';
+import { QUERY_ME } from '../utils/queries';
+import { SAVE_BOOK } from '../utils/mutations';
+import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 const SearchBooks = () => {
@@ -18,12 +21,26 @@ const SearchBooks = () => {
   const [searchedBooks, setSearchedBooks] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState('');
-
   // create state to hold saved bookId values
   const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
+  const [addBook] = useMutation(SAVE_BOOK, {
+    update(cache, { data: { saveBook } }) {
+      try {
+        const { me } = cache.readQuery({ query: QUERY_ME });
+
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: { me: { ...me, savedBooks: saveBook } }
+        });
+
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  });
+
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
-  // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
     return () => saveBookIds(savedBookIds);
   });
@@ -73,13 +90,9 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook(bookToSave, token);
+      const { data } = await addBook({ variables: { book: bookToSave } });
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      // if book successfully saves to user's account, save book id to state
+      if (!data) throw new Error('something went wrong!');
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
       console.error(err);

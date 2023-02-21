@@ -18,13 +18,13 @@ const SavedBooks = () => {
   const { loading, data, error } = useQuery(QUERY_ME);
 
   const [removeBook, status] = useMutation(DELETE_BOOK, {
-    update(cache, { data: { deleteBook } }) {
+    update(cache, { data: { removeBook } }) {
       try {
         const { me } = cache.readQuery({ query: QUERY_ME });
 
         cache.writeQuery({
           query: QUERY_ME,
-          data: { me: { ...me, savedBooks: deleteBook } },
+          data: { me: { ...me, savedBooks: removeBook } },
         });
       } catch (e) {
         console.error(e);

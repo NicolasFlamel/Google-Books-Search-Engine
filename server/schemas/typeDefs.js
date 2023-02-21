@@ -1,21 +1,22 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Book {
-    _id: ID!
-    description: String!
-    bookId: String!
-    image: String
-    link: String
-    title: String!
-    authors: [String]
-  }
-
   type User {
     _id: ID!
     username: String!
     email: String!
+    # TODO: bookCount functionality
+    bookCount: Int
     savedBooks: [Book]
+  }
+
+  type Book {
+    bookId: String!
+    authors: [String]
+    description: String!
+    title: String!
+    image: String
+    link: String
   }
 
   type Auth {
@@ -24,12 +25,12 @@ const typeDefs = gql`
   }
 
   input BookInput {
-    description: String!
     bookId: String!
+    authors: [String]
+    description: String!
+    title: String!
     image: String
     link: String
-    title: String!
-    authors: [String]
   }
 
   type Query {
@@ -37,11 +38,13 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(username: String!, email: String!, password: String!): Auth
+    # TODO: changed from createUser to addUser, make sure still works
+    addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
 
-    saveBook(book: BookInput!): [Book]
-    deleteBook(bookId: ID!): [Book]
+    # TODO: changed return type. fix errors. most likely caching
+    saveBook(book: BookInput!): User
+    removeBook(bookId: ID!): User
   }
 `;
 

@@ -19,11 +19,9 @@ const SavedBooks = () => {
   const [removeBook] = useMutation(REMOVE_BOOK, {
     update(cache, { data: { removeBook } }) {
       try {
-        const { me } = cache.readQuery({ query: GET_ME });
-
         cache.writeQuery({
           query: GET_ME,
-          data: { me: { ...me, savedBooks: removeBook } },
+          data: { me: removeBook },
         });
       } catch (e) {
         console.error(e);
@@ -37,9 +35,7 @@ const SavedBooks = () => {
   const handleDeleteBook = async (bookId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    if (!token) {
-      return false;
-    }
+    if (!token) return false;
 
     try {
       const { data } = await removeBook({ variables: { bookId } });

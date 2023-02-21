@@ -29,12 +29,17 @@ export const SAVE_BOOK = gql`
   mutation saveBook($book: BookInput!) {
     saveBook(book: $book) {
       _id
-      description
-      bookId
-      image
-      link
-      title
-      authors
+      username
+      email
+      bookCount
+      savedBooks {
+        bookId
+        authors
+        description
+        title
+        image
+        link
+      }
     }
   }
 `;
@@ -42,14 +47,19 @@ export const SAVE_BOOK = gql`
 // TODO: make sure change from DELETE_BOOK to REMOVE_BOOK didn't create bugs
 export const REMOVE_BOOK = gql`
   mutation removeBook($bookId: ID!) {
-    deleteBook(bookId: $bookId) {
+    removeBook(bookId: $bookId) {
       _id
-      description
-      bookId
-      image
-      link
-      title
-      authors
+      username
+      email
+      bookCount
+      savedBooks {
+        bookId
+        authors
+        description
+        title
+        image
+        link
+      }
     }
   }
 `;

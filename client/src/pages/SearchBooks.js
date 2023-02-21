@@ -27,11 +27,9 @@ const SearchBooks = () => {
   const [addBook] = useMutation(SAVE_BOOK, {
     update(cache, { data: { saveBook } }) {
       try {
-        const { me } = cache.readQuery({ query: GET_ME });
-
         cache.writeQuery({
           query: GET_ME,
-          data: { me: { ...me, savedBooks: saveBook } },
+          data: { me: saveBook },
         });
       } catch (e) {
         console.error(e);
@@ -48,16 +46,12 @@ const SearchBooks = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    if (!searchInput) {
-      return false;
-    }
+    if (!searchInput) return false;
 
     try {
       const response = await searchGoogleBooks(searchInput);
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+      if (!response.ok) throw new Error('something went wrong!');
 
       const { items } = await response.json();
 

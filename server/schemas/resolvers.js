@@ -42,7 +42,7 @@ const resolvers = {
         { new: true, runValidators: true }
       );
 
-      return user.savedBooks;
+      return user;
     },
     // deletes book from user
     removeBook: async (parent, { bookId }, context) => {
@@ -54,7 +54,7 @@ const resolvers = {
         { new: true }
       );
 
-      return user.savedBooks;
+      return user;
     },
   },
 };

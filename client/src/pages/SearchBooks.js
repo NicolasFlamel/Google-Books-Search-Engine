@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import {
   Jumbotron,
   Container,
@@ -31,13 +31,12 @@ const SearchBooks = () => {
 
         cache.writeQuery({
           query: QUERY_ME,
-          data: { me: { ...me, savedBooks: saveBook } }
+          data: { me: { ...me, savedBooks: saveBook } },
         });
-
       } catch (e) {
         console.error(e);
       }
-    }
+    },
   });
 
   // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount

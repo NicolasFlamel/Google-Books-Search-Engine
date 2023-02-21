@@ -11,7 +11,7 @@ import {
 } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { QUERY_ME } from '../utils/queries';
+import { GET_ME } from '../utils/queries';
 import { SAVE_BOOK } from '../utils/mutations';
 import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
@@ -27,10 +27,10 @@ const SearchBooks = () => {
   const [addBook] = useMutation(SAVE_BOOK, {
     update(cache, { data: { saveBook } }) {
       try {
-        const { me } = cache.readQuery({ query: QUERY_ME });
+        const { me } = cache.readQuery({ query: GET_ME });
 
         cache.writeQuery({
-          query: QUERY_ME,
+          query: GET_ME,
           data: { me: { ...me, savedBooks: saveBook } },
         });
       } catch (e) {

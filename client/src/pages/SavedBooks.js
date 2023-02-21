@@ -9,21 +9,21 @@ import {
 } from 'react-bootstrap';
 
 import Auth from '../utils/auth';
-import { QUERY_ME } from '../utils/queries';
-import { DELETE_BOOK } from '../utils/mutations';
+import { GET_ME } from '../utils/queries';
+import { REMOVE_BOOK } from '../utils/mutations';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
   const [userData, setUserData] = useState({});
-  const { loading, data, error } = useQuery(QUERY_ME);
+  const { loading, data, error } = useQuery(GET_ME);
 
-  const [removeBook, status] = useMutation(DELETE_BOOK, {
+  const [removeBook, status] = useMutation(REMOVE_BOOK, {
     update(cache, { data: { removeBook } }) {
       try {
-        const { me } = cache.readQuery({ query: QUERY_ME });
+        const { me } = cache.readQuery({ query: GET_ME });
 
         cache.writeQuery({
-          query: QUERY_ME,
+          query: GET_ME,
           data: { me: { ...me, savedBooks: removeBook } },
         });
       } catch (e) {

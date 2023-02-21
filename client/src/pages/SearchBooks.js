@@ -84,9 +84,7 @@ const SearchBooks = () => {
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    if (!token) {
-      return false;
-    }
+    if (!token) return false;
 
     try {
       const { data } = await addBook({ variables: { book: bookToSave } });

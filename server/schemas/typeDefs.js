@@ -5,8 +5,8 @@ const typeDefs = gql`
     _id: ID!
     username: String!
     email: String!
-    # TODO: bookCount functionality 
-    bookCount: Int 
+    # TODO: bookCount functionality
+    bookCount: Int
     savedBooks: [Book]
   }
 

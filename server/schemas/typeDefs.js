@@ -5,7 +5,6 @@ const typeDefs = gql`
     _id: ID!
     username: String!
     email: String!
-    # TODO: bookCount functionality
     bookCount: Int
     savedBooks: [Book]
   }
@@ -38,11 +37,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    # TODO: changed from createUser to addUser, make sure still works
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-
-    # TODO: changed return type. fix errors. most likely caching
     saveBook(book: BookInput!): User
     removeBook(bookId: ID!): User
   }

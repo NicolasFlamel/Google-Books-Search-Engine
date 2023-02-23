@@ -2,20 +2,15 @@
 
 ## Description
 
-Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide:
-
-- What was your motivation?
-- Why did you build this project? (Note: the answer is not "Because it was a homework assignment.")
-- What problem does it solve?
-- What did you learn?
+This application lets you search for books using google's api. It returns a list of books with a title, author, and a short description. You can make an account which is saved using a mongoDB database and save the books to your account which can be removed at any time. This project was a way for me to practice a way to set up an Apollo Server to use GraphQL queries and mutations to fetch and modify data, replacing the existing RESTful API. As well as modify the existing authentication middleware so that it works in the context of a GraphQL API. I was able to as well create an Apollo Provider so that requests can communicate with an Apollo Server.
 
 ## Installation
 
 - Have Nodejs installed (I used v16.18)
 - Install npm dependencies
-    - use 'npm install' on terminal once navigated to folder
+  - use 'npm install' on terminal once navigated to folder
 - create a .env file, rename/use the [.env.EXAMPLE file](./server/.env.EXAMPLE)
-    - create your own secret for better security
+  - create your own secret for better security
 
 ## Usage
 
